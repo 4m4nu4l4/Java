@@ -1,3 +1,8 @@
+////////////
+////////////
+////////////
+////////////
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /* h g */
@@ -19,8 +24,8 @@ public class AtividadesDeRevisao {
             System.out.println("Digite 7 para - calcular imposto");
             System.out.println("Digite 8 para - calcular se é impar ou par");
             System.out.println("Digite 9 para - Comparar dois valores strings");
-            System.out.println("Digite 10 para - ");
-
+            System.out.println("Digite 10 para - transformar string em int");
+            System.out.println("Digite 11 para - calcular o imposto de renda");
 
             try {
                 opcao = scan.nextInt(); // aqui chama oq ja foi digitado
@@ -133,32 +138,54 @@ public class AtividadesDeRevisao {
 
                     case 9:
                     System.out.println("Diga a 1 palavra:");
-                    String palavra1 = scan.next();
+                    String str = scan.next();
                     System.out.println("Diga a 2 palavra:");
-                    String palavra2 = scan.next();
+                    String str1 = scan.next();
 
-                    if (palavra1 == palavra2){
-                        System.out.println("As strings sao iguais");
-                    }else{
-                        System.out.println("as strings sao diferentes!");
+                    if(str.equals(str1)){
+                        System.out.println("os valores são iguais");
+                    }
+                    else{
+                        System.out.println("os valores são diferentes");
                     }
                     break;
+                    
+                    case 10: 
+                    try {
+                        String valor = "46.9";
+                        float num1 = Float.parseFloat(valor);
+                        int numeroInteiro = (int) num1;
+                        System.out.println(numeroInteiro);
+                    } catch (Exception e) {
+                    System.out.println("Digite um valor valido");
+                    }
+                    break; // ainda n entendi bem isso 
 
-                    //case 10:
-
-
-
-
+                    case 11:
+                    System.out.println("Digite o salario");
+                    double sal = scan.nextDouble();
+                    if(sal <= 1903.98){
+                        System.out.println("Isento");
+                    }
+                    if(sal > 1903.98 && sal <= 2826.65){
+                        System.out.println("7,5% de imposto");
+                    }
+                    if(sal > 2826.65 && sal <= 3751.05){
+                        System.out.println("15% de imposto");
+                    }
+                    if(sal > 3751.05 && sal <= 4664.68){
+                        System.out.println("22,5% de imposto");
+                    }
+                    if(sal > 4664.68){
+                        System.out.println("27,5% de imposto");
+                    }
+                break; //poderia usar o try e o catch
 
                 default:
                     System.out.println("Opção inválida!");
                     break;
             }
-        } while (opcao != 0);
-     
+}while(opcao!=0);
 
-    //private static void Float() {
-   // }   
-   scan.close();
-    }
-}
+// em cada case eu preciso abrir um scanner? n entendi 
+scan.close();}}

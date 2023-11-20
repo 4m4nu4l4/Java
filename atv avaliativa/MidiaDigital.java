@@ -8,7 +8,7 @@ public class MidiaDigital extends Midia {
     private String album;
 
     public MidiaDigital(String titulo, String album, boolean disponivel) {
-        super(titulo, disponivel);
+        super(titulo, album, disponivel);
         this.album = album;
         try (Connection connManager = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/Autor",

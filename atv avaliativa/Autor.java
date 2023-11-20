@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.util.ArrayList;
 
@@ -26,6 +27,31 @@ public class Autor extends Pessoa {
             }
         } catch (SQLException exception) {
             System.out.println("Erro ao inserir usuário: " + exception.getMessage());
+        }
+    }
+
+    public static void ListarAutores() {
+        try (Connection connManager = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/seu_banco_de_dados",
+                "root",
+                "")) {
+
+        System.out.println("Realizando SELECT de autor");
+            try (PreparedStatement sc = connManager.prepareStatement("SELECT id, nome, nacionalidade FROM biblioteca.Autor")) {
+                try (ResultSet ra = sc.executeQuery()) {
+                    if (ra.next()) {
+                        long id = ra.getLong("id");
+                        String nome = ra.getString("nome");
+                        String nacionalidade = ra.getString("nacionalidade");
+
+                        System.out.println("ID: " + id + ", Nome: " + nome + ", Nacionalidade: " + nacionalidade);
+                    } else {
+                        System.out.println("Autor não encontrado");
+                    }
+                }
+            }
+        } catch (SQLException exception) {
+            System.out.println("Erro ao realizar SELECT: " + exception.getMessage());
         }
     }  
         

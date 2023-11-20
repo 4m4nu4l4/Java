@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class Livro extends Midia {
     private Autor autor;
 
-    public Livro(String titulo, Autor autor, boolean disponivel) {
-        super(titulo, disponivel);
-        this.autor = autor;
+    public Livro(String titulo, String album, boolean disponivel) {
+        super(titulo, album, disponivel);
+        //this.titulo = titulo;
 
          try (Connection connManager = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/Autor",
@@ -32,11 +32,11 @@ public class Livro extends Midia {
        // bibliotecas.add(this);
     }
 
-    public String toString() {
-        return "Título: " + super.getTitulo()
-            + ". Autor: " + this.autor.getNome() 
-            + ". Disponível: " + (super.getDisponivel() ? "Sim" : "Não");
-    }
+    // public String toString() {
+    //     return "Título: " + super.getTitulo()
+    //         + ". Autor: " + this.autor.getNome() 
+    //         + ". Disponível: " + (super.getDisponivel() ? "Sim" : "Não");
+    // }
 
     public void setAutor(Autor autor) {
         this.autor = autor;

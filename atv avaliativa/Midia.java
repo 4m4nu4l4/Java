@@ -1,7 +1,7 @@
 public class Midia {
     
-    private String titulo;
-    private boolean disponivel;
+    public String titulo;
+    public boolean disponivel;
 
     public Midia(String titulo, boolean disponivel) {
         this.titulo = titulo;

@@ -32,7 +32,7 @@ public class Autor extends Pessoa {
 
     public static void ListarAutores() {
         try (Connection connManager = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/seu_banco_de_dados",
+                "jdbc:mysql://localhost:3306/",
                 "root",
                 "")) {
 

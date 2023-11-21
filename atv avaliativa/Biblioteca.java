@@ -2,17 +2,14 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.util.ArrayList;
 
 public class Biblioteca {
     private String nome;
     
-    
     public Biblioteca(String nome) {
         this.nome = nome;
-        //this.livros = new ArrayList<>();
-        //this.midiasDigitals = new ArrayList<>();
 
         try (Connection connManager = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/Autor",
@@ -30,50 +27,32 @@ public class Biblioteca {
         } catch (SQLException exception) {
             System.out.println("Erro ao inserir usuário: " + exception.getMessage());
         }
-     
-       // bibliotecas.add(this);
     }
 
+  public static void listarBiblioteca() {
+        try (Connection connManager = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/",
+                "root",
+                "")) {
+
+        System.out.println("Realizando SELECT de autor");
+            try (PreparedStatement sc = connManager.prepareStatement("SELECT id, nome FROM biblioteca.Biblio")) {
+                try (ResultSet ra = sc.executeQuery()) {
+                    if (ra.next()) {
+                        long id = ra.getLong("id");
+                        String nome = ra.getString("nome");
+                      
+                        System.out.println("ID: " + id + ", Nome: " + nome);
+                    } else {
+                        System.out.println("Biblioteca não encontrada");
+                    }
+                }
+            }
+        } catch (SQLException exception) {
+            System.out.println("Erro ao realizar SELECT: " + exception.getMessage());
+        }
+    }  
     public String toString() {
         return "Nome: " + this.nome;
     }
-
-    // public void adicionarLivro(Livro livro) {
-    //     this.livros.add(livro);
-    // }
-
-    // public void adicionarMidiaDigital(MidiaDigital midiaDigitals) {
-    //     this.midiasDigitals.add(midiaDigitals);
-    // }
-
-    // public void listarLivros() {
-    //     for(int i = 0; i < this.livros.size(); i++) {
-    //         System.out.println(i + " - " + this.livros.get(i).toString());
-    //     }
-    // }
-
-    // public void listarMidias() {
-    //     for(int i = 0; i < this.midiasDigitals.size(); i++) {
-    //         System.out.println(i + " - " + this.midiasDigitals.get(i).toString());
-    //     }
-    // }
-
-    // public static ArrayList<Biblioteca> getBibliotecas() {
-    //     return bibliotecas;
-    // }
-
-    // public ArrayList<Livro> getLivros() {
-    //     return this.livros;
-    // }
-
-    // public ArrayList<MidiaDigital> getMidiasDigitals() {
-    //     return this.midiasDigitals;
-    // }
-
-    // public static void listarBibliotecas() {
-    //     for(int i = 0; i < bibliotecas.size(); i++) {
-    //         Biblioteca biblioteca = bibliotecas.get(i);
-    //         System.out.println(i + " - " + biblioteca.toString());
-    //     }
-    // }
 }

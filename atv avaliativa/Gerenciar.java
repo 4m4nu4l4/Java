@@ -13,8 +13,10 @@ public class Gerenciar {
             System.out.println("2 - Criar livro");
             System.out.println("3 - Criar mídia digital");
             System.out.println("4 - Criar biblioteca");
-            System.out.println("5 - Adicionar livro");
-            System.out.println("6 - Adicionar mídia");
+            System.out.println("5 - Listar autores");
+            System.out.println("6 - Listar livros");
+            System.out.println("7 - Listar Biblioteca");
+            System.out.println("8 - Listar Midias Digitais");
         
             try {
                 op = sc.nextInt();
@@ -27,7 +29,7 @@ public class Gerenciar {
                     System.out.println("Sair....");
                     break;
                 }
-                case 1: {
+                case 1: { // criar autor
                     System.out.println("Digite o nome do autor");
                     String nome = sc.next();
                     System.out.println("Digite o nacionalidade do autor");
@@ -35,25 +37,25 @@ public class Gerenciar {
                     new Autor(nome, nacionalidade);
                     break; 
                 }
-                case 2: {
-                    System.out.println("Digite o titulo");
-                    String titulo = sc.next();
-                    int posicaoAutor = -1;
-                    do {
-                   
-                        
-                    } while (posicaoAutor < 0);
 
-                }
-                case 3: {
+                case 2: { // criar livro 
                     System.out.println("Digite o titulo");
                     String titulo = sc.next();
+                    System.out.println("Diga o autor");
+                    String autor = sc.next();
+                new Livro(titulo, autor, false);
+                }
+
+                case 3: { // midia digital
+                    System.out.println("Digite o titulo");
+                    String nomeMidia = sc.next();
                     System.out.println("Digite o album");
                     String album = sc.next();
-                    //new MidiaDigital(titulo, album, true);
+                    new MidiaDigital(nomeMidia, album, true);
                     break;
                 }
-                case 4: {
+
+                case 4: { //criar biblioteca
                     System.out.println("Digite o nome da biblioteca");
                     String nomeBiblioteca = sc.next();
                     new Biblioteca(nomeBiblioteca);
@@ -62,7 +64,15 @@ public class Gerenciar {
                 case 5: {
                     Autor.ListarAutores();
                 }
-              
+                case 6: {
+                    Livro.listarLivros();
+                }
+                case 7: {
+                    Biblioteca.listarBiblioteca();
+                }
+                case 8: {
+                    MidiaDigital.listarMidia();
+                }
                 default: {
                     System.out.println("Opção inválida");
                     break;

@@ -1,15 +1,16 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Livro extends Midia {
-    private Autor autor;
+    private String autor;
 
-    public Livro(String titulo, String album, boolean disponivel) {
-        super(titulo, album, disponivel);
-        //this.titulo = titulo;
+    public Livro(String titulo, String autor, boolean disponivel) {
+        super(titulo, disponivel);
+        this.titulo = titulo;
 
          try (Connection connManager = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/Autor",
@@ -17,32 +18,52 @@ public class Livro extends Midia {
                 "")) {
 
             System.out.println("Inserindo os valores de autor");
-            try (PreparedStatement sc = connManager.prepareStatement("INSERT INTO biblioteca.Autor VALUES (?, ?)")) {
+            try (PreparedStatement sc = connManager.prepareStatement("INSERT INTO biblioteca.Autor VALUES (?, ?, ?)")) {
                 sc.setLong(1, 0);
                 sc.setString(2, this.titulo);
-                sc.setString(2, this.autor);
+                sc.setString(3, this.autor);
                 sc.executeUpdate();
 
                 System.out.println("Usuário inserido");
             }
         } catch (SQLException exception) {
             System.out.println("Erro ao inserir usuário: " + exception.getMessage());
-        }
-     
-       // bibliotecas.add(this);
+        }  
     }
+     public static void listarLivros() {
+        try (Connection connManager = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/",
+                "root",
+                "")) {
 
+        System.out.println("Realizando SELECT de autor");
+            try (PreparedStatement sc = connManager.prepareStatement("SELECT id, nome FROM biblioteca.Biblio")) {
+                try (ResultSet ra = sc.executeQuery()) {
+                    if (ra.next()) {
+                        long id = ra.getLong("id");
+                        String titulo = ra.getString("titulo");
+                        String autor = ra.getString("autor");
+
+                        System.out.println("ID: " + id + ", Título: " + titulo + ", Autor: " + autor);
+                    } else {
+                        System.out.println("Livros não encontrados");
+                    }
+                }
+            }
+        } catch (SQLException exception) {
+            System.out.println("Erro ao realizar SELECT: " + exception.getMessage());
+        }
+    }  
     // public String toString() {
-    //     return "Título: " + super.getTitulo()
-    //         + ". Autor: " + this.autor.getNome() 
-    //         + ". Disponível: " + (super.getDisponivel() ? "Sim" : "Não");
+    //     return "Nome: " + this.nome;
     // }
 
-    public void setAutor(Autor autor) {
+
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 
-    public Autor getAutor() {
+    public String getAutor() {
         return this.autor;
     }
 }
